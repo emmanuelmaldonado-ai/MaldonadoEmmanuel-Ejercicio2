@@ -14,35 +14,104 @@ Console.WriteLine("Autorización escrita (s/n)");
 string autori = Console.ReadLine();
 Console.WriteLine("Trae USB (s/n)");
 string usb = Console.ReadLine();
+
 if (usb == "s" || usb == "S")
 {
     Console.WriteLine("Está acompañado (s/n)");
-    string acompañado = Console.ReadLine();
 }
-int acceso = int.Parse(Console.ReadLine());
+else if (usb == "n" && usb == "N")
+{
+    Console.WriteLine("Ingresa solo");
+}
 
-if (rol < 1 || rol > 4)
+if (hora < 0 && hora > 23)
 {
-    Console.WriteLine("Tipo de rol no válido");
+    Console.WriteLine("fuera de rango");
 }
-else if (hora < 0 || hora > 23)
+else if (dia < 1 && dia > 7)
 {
-    Console.WriteLine("Horas fuera de rango");
+    Console.WriteLine("Dias fuera de rango");
 }
-else if (dia < 1 || dia > 7)
+else if (carnet == "n" || carnet == "N")
 {
-    Console.WriteLine("Dias no validos");
+    Console.WriteLine("No puede entrarsin carnet");
 }
-else if (carnet != "s" && carnet != "S" && carnet != "n" && carnet != "N")
+else if (autori == "n" || autori == "N")
 {
-    Console.WriteLine("Carnet debe ser s o n");
+    Console.WriteLine("No puede entrar sin autorización");
 }
-else if (autori != "s" && autori != "S" && autori != "n" && autori != "N ")
+else if (usb == "n" || usb == "N")
 {
-    Console.WriteLine("La autorización debe ser s o n");
+    string acompañado = "n";
+    if (usb == "s")
+    {
+        Console.WriteLine("Esta acompañado (s/n)");
+        acompañado = Console.ReadLine();
+    }
 }
-else if (usb != "s" && usb != "S" && usb != "n" && usb != "N")
+string resultadoacceso = "denegado";
+string nivelpermiso = "Ninguno";
+
+
+switch (rol)
 {
-    Console.WriteLine("USB tiene que ser s o n");
+  
+    case 1:
+        int estudiante = int.Parse(Console.ReadLine());
+        if (estudiante == 1)
+        {
+            if (dia >=1 && dia <= 5 && hora >= 7 && hora <= 18 && carnet == "s")
+            {
+                Console.WriteLine("Horario habil");
+                resultadoacceso = "permitido";
+                nivelpermiso = "estudiante";
+            }
+            else
+            {
+                Console.WriteLine("Dia y horario no permitido para estudiante");
+            }
+        }
+        break;
+    case 2:
+        int docente = int.Parse(Console.ReadLine());
+        {
+            if (carnet == "s")
+            {
+                resultadoacceso = "permitido";
+                nivelpermiso = "docente";
+            }
+        }
+        break;
+    case 3:
+        int tecnico = int.Parse(Console.ReadLine());
+        if (carnet == "s")
+        {
+            if (hora >= 7 && hora <= 18 && dia <= 5)
+            {
+                resultadoacceso = "permirido";
+                nivelpermiso = "Tecnico";
+            }
+            else if (autori == "s")
+            {
+                resultadoacceso = "permitido";
+                nivelpermiso = "Tecnico";
+            }
+        }
+        else if (autori == "s")
+        {
+            resultadoacceso = "permitido";
+            nivelpermiso = "Tecnico";
+        }
+        break;
+    case 4:
+        if (autori == "s")
+        {
+            if (acompañado == "s")
+            {
+                resultadoacceso == "permitido";
+                nivelpermiso = "visitante";
+            }
+        }
+        break; 
 }
 
