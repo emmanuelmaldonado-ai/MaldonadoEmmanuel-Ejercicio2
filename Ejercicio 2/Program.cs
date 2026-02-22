@@ -57,8 +57,6 @@ switch (rol)
 {
   
     case 1:
-        int estudiante = int.Parse(Console.ReadLine());
-        if (estudiante == 1)
         {
             if (dia >=1 && dia <= 5 && hora >= 7 && hora <= 18 && carnet == "s")
             {
@@ -73,7 +71,6 @@ switch (rol)
         }
         break;
     case 2:
-        int docente = int.Parse(Console.ReadLine());
         {
             if (carnet == "s")
             {
@@ -106,12 +103,20 @@ switch (rol)
     case 4:
         if (autori == "s")
         {
-            if (acompañado == "s")
+            string acompañado = Console.ReadLine();
+            if ( acompañado == "s")
             {
-                resultadoacceso == "permitido";
+                resultadoacceso = "permitido";
                 nivelpermiso = "visitante";
             }
         }
         break; 
 }
 
+if (usb == "s")
+{
+    if (autori == "n")
+    {
+        resultadoacceso = "denegado";
+    }
+}
